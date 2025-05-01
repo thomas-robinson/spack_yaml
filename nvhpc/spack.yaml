@@ -1,0 +1,39 @@
+spack:
+  mirrors:
+    E4S: https://cache.e4s.io/noaa
+  definitions:
+  - packages_builtin:
+    - bacio%nvhpc@24.7
+    - hdf5@1.14.5%nvhpc@24.7
+    - ip%nvhpc@24.7
+    - libyaml@0.2.5%nvhpc@24.7
+    - nccmp@1.9.1.0%nvhpc@24.7
+    - netcdf-c@4.9.2%nvhpc@24.7
+    - netcdf-fortran@4.6.1%nvhpc@24.7
+    - sp@2.3.3%nvhpc@24.7
+    - w3emc@2.11.0
+    - w3nco@2.4.1
+    - xz@5.2.0
+    - zlib%nvhpc@24.7
+    - zlib-ng@2.1.4%nvhpc@24.7
+    - zstd@1.5.4
+  packages:
+    hdf5:
+      variants: +fortran+hl+szip~~mpi
+    netcdf-c:
+      variants: +dap~~mpi
+    pango:
+      variants: +X~~mpi
+    all:
+      target: [x86_64]
+      providers:
+        zlib-api: [zlib-ng+compat, zlib]
+      compiler: [oneapi]
+  specs:
+  - matrix:
+    - [$packages_builtin]
+  concretizer:
+    unify: True
+  config:
+    install_tree: /opt/software
+  view: /opt/views/view
